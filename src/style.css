@@ -134,7 +134,7 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    box-shadow: 1px 1px 1px 1px grey;
+    box-shadow: 2px 2px 3px 1px rgba(0,0,0,0.2);
 }
 
 .checkBtn{
@@ -153,4 +153,14 @@ body {
 
 .checkBtn:hover {
     background-color: #84cc16;
+}
+
+#projectInput > input{
+    width: 95%;
+    outline: none;
+    margin: 0.5rem 10px;
+    padding-left: 10px;
+    font-size: 1rem;
+    line-height: 2rem;
+    border-radius: 5px;
 }
