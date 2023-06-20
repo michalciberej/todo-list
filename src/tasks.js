@@ -45,10 +45,8 @@ export function displayTasksInProjectsOnLoad() {
     for (let j = 0; j < localStorage.length; j++) {
 
         let projectName = localStorage.key(j)
-        console.log(projectName)
 
         let element = JSON.parse(localStorage.getItem(localStorage.key(j)))
-        console.log(element)
 
         if (element.isShown === true) {
             for (let i = 0; i < element.tasks.length; i++) {
@@ -90,10 +88,8 @@ export function displayTasksInProjectsOnLoad() {
 export function displayTasksInProject(e) {
 
     const projectName = e.target.closest(".projects").id
-    console.log(projectName)
 
     const element = JSON.parse(localStorage.getItem(projectName))
-    console.log(element)
 
     clearContainer(e)
     document.querySelector(`#${projectName}`).querySelector(".tasksContainer").innerHTML = ""

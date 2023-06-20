@@ -10,6 +10,8 @@ export function displayProjectsMenu() {
     const mC = document.querySelector("#mainContainer")
     const nP = document.querySelectorAll("#newProjects")
 
+    resetNewProjectInput()
+
     if (pC.style.width === "15vw") {
         pC.style.width = "0vw"
         mC.style.marginLeft = "0vw"
@@ -66,9 +68,23 @@ function storeProjectToLocalStorage() {
 export function displayProjectsInSideBar() {
     resetContainer("#newProjects")
     for (let i = 0; i < localStorage.length; i++) {
-        let div = document.createElement("div")
+        const div = document.createElement("div")
         div.textContent = localStorage.key(i)
+        div.classList.add("newProject")
         div.dataset.name = localStorage.key(i)
+        
+        const isShown = document.createElement("div")
+
+        const x = JSON.parse(localStorage.getItem(localStorage.key(i)))
+
+        isShown.dataset.name = localStorage.key(i)
+        if (x.isShown === false) {
+            isShown.classList.add("isShownFalse")
+        }   else {
+            isShown.classList.remove("isShownFalse")
+        }
+
+        div.appendChild(isShown)
         document.querySelector("#newProjects").appendChild(div)
         
         div.addEventListener("click", (e) => {
@@ -78,18 +94,22 @@ export function displayProjectsInSideBar() {
     }
 }
 
+// !        SHOW/HIDE PROJECT IN MAIN CONTAINER
+
 function showHideProjectInMainContainer(e) {
 
     const projectName = e.target.dataset.name
     console.log(projectName)
 
     const element = JSON.parse(localStorage.getItem(projectName))
-    console.log(element)
     
     if (element.isShown === true) {
         element.isShown = false
+        e.target.lastChild.classList.add("isShownFalse")
+        console.log(e.target.lastChild.classList)
     }   else {
         element.isShown = true
+        e.target.lastChild.classList.remove("isShownFalse")
     }
 
     localStorage.setItem(projectName, JSON.stringify(element))
@@ -115,7 +135,7 @@ export function displayProjectsInMainContainer() {
 // !        RESET DOM 
 
 function resetNewProjectInput() {
-    document.querySelector("#projectTextInput").innerHTML = ""
+    document.querySelector("#projectInput").innerHTML = ""
 }
 
 function resetContainer(id) {
