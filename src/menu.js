@@ -14,11 +14,15 @@ export function displayProjectsMenu() {
 
     if (pC.style.width === "15vw") {
         pC.style.width = "0vw"
+        pC.style.position = "static"
+        pC.style.padding = "0"
         mC.style.marginLeft = "0vw"
         displayProjectOptions(pO, 0)
         displayProjectOptions(nP, 0)
     } else if (pC.style.width === "" || pC.style.width === "0vw") {
         pC.style.width = "15vw"
+        pC.style.position = "fixed"
+        pC.style.padding = "0 0 0 2.5rem"
         mC.style.marginLeft = "15vw"
         displayProjectOptions(pO, 1)
         displayProjectOptions(nP, 1)
@@ -97,16 +101,13 @@ export function displayProjectsInSideBar() {
 // !        SHOW/HIDE PROJECT IN MAIN CONTAINER
 
 function showHideProjectInMainContainer(e) {
-
     const projectName = e.target.dataset.name
-    console.log(projectName)
 
     const element = JSON.parse(localStorage.getItem(projectName))
     
     if (element.isShown === true) {
         element.isShown = false
         e.target.lastChild.classList.add("isShownFalse")
-        console.log(e.target.lastChild.classList)
     }   else {
         element.isShown = true
         e.target.lastChild.classList.remove("isShownFalse")

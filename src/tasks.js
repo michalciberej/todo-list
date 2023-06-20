@@ -1,5 +1,7 @@
 import { Task } from "./projects.js"
 import { displayProjectsInMainContainer, displayProjectsInSideBar } from "./menu.js"
+import { updateReminders } from "./date.js"
+import { format, parseISO} from "date-fns"
 
 export function addNewTaskInput(e) {
 
@@ -28,6 +30,7 @@ export function addNewTaskInput(e) {
     taskBtn.addEventListener("click", (e) => {
         storeTasksInProject(e)
         displayTasksInProject(e)
+        updateReminders()
         }
     )
 }
@@ -41,6 +44,7 @@ export function displayTasksInProjectsOnLoad() {
 
     displayProjectsInSideBar()
     displayProjectsInMainContainer()
+    updateReminders()
     
     for (let j = 0; j < localStorage.length; j++) {
 
@@ -64,19 +68,25 @@ export function displayTasksInProjectsOnLoad() {
             taskDateP.textContent = element.tasks[i].date
             taskDateP.classList.add("taskDateInput")
 
+            const dateBtnDiv = document.createElement("div")
+
             const taskBtn = document.createElement("button")
             taskBtn.setAttribute("type", "button")
             taskBtn.classList.add("checkBtn")
 
             task.appendChild(taskNameP)
-            task.appendChild(taskDateP)
-            task.appendChild(taskBtn)
+            dateBtnDiv.appendChild(taskDateP)
+            dateBtnDiv.appendChild(taskBtn)
+
+            task.appendChild(dateBtnDiv)
 
             document.querySelector(`#${projectName}`).querySelector(".tasksContainer").appendChild(task)
 
             taskBtn.addEventListener("click", (e) => {
                 removeTask(e, element.tasks[i].index)
                 e.target.closest(`#${element.tasks[i].name}`).remove()
+                updateReminders()
+                updateTasksTotal()
                 }
             )}
         }
@@ -108,20 +118,25 @@ export function displayTasksInProject(e) {
         taskDateP.textContent = element.tasks[i].date
         taskDateP.classList.add("taskDateInput")
 
+        const dateBtnDiv = document.createElement("div")
+
         const taskBtn = document.createElement("button")
         taskBtn.setAttribute("type", "button")
         taskBtn.classList.add("checkBtn")
         taskBtn.dataset.name = element.tasks[i].name
 
         task.appendChild(taskNameP)
-        task.appendChild(taskDateP)
-        task.appendChild(taskBtn)
+        dateBtnDiv.appendChild(taskDateP)
+        dateBtnDiv.appendChild(taskBtn)
+
+        task.appendChild(dateBtnDiv)
         
         document.querySelector(`#${projectName}`).querySelector(".tasksContainer").appendChild(task)
 
         taskBtn.addEventListener("click", (e) => {
             removeTask(e, element.tasks[i].index)
             e.target.closest(`#${element.tasks[i].name}`).remove()
+            updateReminders()
             }
         )
     }
@@ -151,6 +166,11 @@ function storeTasksInProject(e) {
         document.querySelector("#taskDateInput").value,
     )
     
+    let formatDate = task.date 
+    formatDate = format(parseISO(formatDate), "dd/MM/yyyy")
+
+    task.date = formatDate
+
     element.tasks.push(task)
 
     localStorage.setItem(projectName, JSON.stringify(element))

@@ -25,8 +25,10 @@ body {
     height: 3.5rem;
     display: flex;
     align-items: center;
-    justify-content: space-between;
     padding: 0 2.5vw;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 #burgerMenu {
@@ -34,6 +36,12 @@ body {
     height: 3rem;
     fill: var(--whiteClr);
     cursor: pointer;
+}
+
+.logo {
+    width: 3rem;
+    height: 3rem;
+    fill: var(--whiteClr);
 }
 
 #projectsContainer {
@@ -55,7 +63,20 @@ body {
     width: 0vw;
 }
 
-#reminder {
+#todayReminder {
+    margin-left: auto;
+    font-weight: bold;
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f87171;
+    border-radius: 50%;
+    color: var(--whiteClr)
+}
+
+#upcomingCount {
     margin-left: auto;
     font-weight: bold;
     width: 1.5rem;
@@ -80,16 +101,9 @@ body {
     font-size: 1rem;
     gap: 10px;
     padding: 0 10px;
-    cursor: pointer;
     scale: 0;
     align-items: center;
     transition: none;
-}
-
-.projectsOptions:hover {
-    background: var(--darkerWhiteClr);
-    border-radius: 10px;
-    color: var(--blackClr);
 }
 
 #todayIcon {
@@ -132,6 +146,8 @@ body {
     align-items: center;
     box-shadow: 2px 2px 3px 1px rgba(0,0,0,0.2);
     font-size: 1.3rem;
+    position: relative;
+    z-index: 2;
 }
 
 .checkBtn{
@@ -157,6 +173,16 @@ body {
     font-size: 1rem;
     line-height: 2rem;
     border-radius: 5px;
+}
+
+#newProjectBtn {
+    cursor: pointer;
+}
+
+#newProjectBtn:hover {
+    background: var(--darkerWhiteClr);
+    border-radius: 10px;
+    color: var(--blackClr);
 }
 
 #newProjects {
@@ -192,7 +218,7 @@ body {
 .plusBtn {
     width: 1.5rem;
     height: 1.5rem;
-    border-radius: 10px;
+    border-radius: 50%;
     cursor: pointer;
     background-color: #a8a29e;
     transition: background-color 0.2s ease;
@@ -259,4 +285,11 @@ h3 {
 
 .isShownFalse {
     background: var(--darkerWhiteClr) !important
+}
+
+.task > div {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: rgba(0,0,0,0.6);
 }
